@@ -71,9 +71,6 @@ const Experience = () => {
               <span className="rounded-full border border-indigo-300/25 bg-indigo-400/10 px-4 py-2 text-sm font-medium text-indigo-100">
                 5th Semester
               </span>
-              <span className="rounded-full border border-indigo-300/25 bg-indigo-400/10 px-4 py-2 text-sm font-medium text-indigo-100">
-                CGPA 3.61
-              </span>
             </div>
           </div>
         </motion.article>
