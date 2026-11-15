@@ -237,14 +237,19 @@ Environment variables[^3] can be used for configuration. They must be set before
 **React.js 18 3D Portfolio** uses [EmailJS](https://www.emailjs.com/) as external service. You need
 to create an account and get the required credentials to run the app.
 
-Create a `.env` file in the root directory of the project and add the following environment
-variables:
+Create a `.env.local` file in the project root for local development and add the following
+environment variables. For Netlify, set the same variables under the site's environment variables
+and trigger a new deploy:
 
 ```env
 VITE_EMAILJS_SERVICE_ID=<VITE_EMAILJS_SERVICE_ID>
 VITE_EMAILJS_TEMPLATE_ID=<VITE_EMAILJS_TEMPLATE_ID>
 VITE_EMAILJS_ACCESS_TOKEN=<VITE_EMAILJS_ACCESS_TOKEN>
 ```
+
+`VITE_EMAILJS_ACCESS_TOKEN` is passed to the browser as the EmailJS public key; do not put a private
+EmailJS API key or other server-side secret in a `VITE_` variable. If EmailJS is not configured, the
+contact form reports that submission is unavailable and directs visitors to the verified email link.
 
 ## 🚀 Deployment
 

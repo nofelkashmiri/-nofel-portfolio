@@ -1,12 +1,13 @@
-import React, { Suspense, useEffect, useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, OrbitControls, Preload, useGLTF } from "@react-three/drei";
-import { Group, MathUtils } from "three";
+import React, { Suspense, useEffect, useRef, useState } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Float, OrbitControls, Preload, useGLTF } from '@react-three/drei';
+import { Group, MathUtils } from 'three';
 
-import CanvasLoader from "../layout/Loader";
+import CanvasLoader from '../layout/Loader';
+import { isWebGLAvailable } from '../../utils/webgl';
 
 const Computers: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
-  const computer = useGLTF("./desktop_pc/scene.gltf");
+  const computer = useGLTF('./desktop_pc/scene.gltf');
   const modelRef = useRef<Group>(null);
 
   useFrame(({ pointer }, delta) => {
@@ -54,43 +55,53 @@ const Computers: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
 
 const ComputersCanvas = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Add a listener for changes to the screen size
-    const mediaQuery = window.matchMedia("(max-width: 500px)");
-
-    // Set the initial value of the `isMobile` state variable
+    const mediaQuery = window.matchMedia('(max-width: 500px)');
     setIsMobile(mediaQuery.matches);
-
-    // Define a callback function to handle changes to the media query
     const handleMediaQueryChange = (event: MediaQueryListEvent) => {
       setIsMobile(event.matches);
     };
+    mediaQuery.addEventListener('change', handleMediaQueryChange);
 
-    // Add the callback function as a listener for changes to the media query
-    mediaQuery.addEventListener("change", handleMediaQueryChange);
-
-    // Remove the listener when the component is unmounted
     return () => {
-      mediaQuery.removeEventListener("change", handleMediaQueryChange);
+      mediaQuery.removeEventListener('change', handleMediaQueryChange);
     };
   }, []);
 
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    if (!('IntersectionObserver' in window)) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsVisible(entry.isIntersecting);
+    });
+    observer.observe(container);
+
+    return () => observer.disconnect();
+  }, []);
+
+  if (!isWebGLAvailable()) return null;
+
   return (
-    <>
-      {isMobile ? (
-        <></>
-      ) : (
+    <div ref={containerRef} className="h-full w-full">
+      {isMobile ? null : (
         <Canvas
-          frameloop="always"
+          frameloop={isVisible ? 'always' : 'demand'}
           shadows
-          dpr={[1, 2]}
+          dpr={[1, 1.5]}
           camera={{ position: [20, 3, 5], fov: 25 }}
-          gl={{ preserveDrawingBuffer: true }}
         >
           <Suspense fallback={<CanvasLoader />}>
             <OrbitControls
-              autoRotate
+              autoRotate={isVisible}
               autoRotateSpeed={0.35}
               enablePan={false}
               enableZoom={false}
@@ -102,7 +113,7 @@ const ComputersCanvas = () => {
           <Preload all />
         </Canvas>
       )}
-    </>
+    </div>
   );
 };
 

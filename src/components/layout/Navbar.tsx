@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import { styles } from "../../constants/styles";
-import { navLinks } from "../../constants";
-import { logo, menu, close } from "../../assets";
-import { config } from "../../constants/config";
+import { styles } from '../../constants/styles';
+import { navLinks } from '../../constants';
+import { config } from '../../constants/config';
+import menu from '../../assets/menu.svg';
+import close from '../../assets/close.svg';
 
 const Navbar = () => {
-  const [active, setActive] = useState<string | null>();
+  const [active, setActive] = useState<string | null>('');
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -18,21 +19,20 @@ const Navbar = () => {
         setScrolled(true);
       } else {
         setScrolled(false);
-        setActive("");
+        setActive('');
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-
     const navbarHighlighter = () => {
-      const sections = document.querySelectorAll("section[id]");
+      const sections = document.querySelectorAll('section[id]');
 
-      sections.forEach((current) => {
-        const sectionId = current.getAttribute("id");
-        // @ts-ignore
-        const sectionHeight = current.offsetHeight;
-        const sectionTop =
-          current.getBoundingClientRect().top - sectionHeight * 0.2;
+      sections.forEach(current => {
+        const sectionId = current.getAttribute('id');
+        if (!sectionId) return;
+
+        const currentElement = current as HTMLElement;
+        const sectionHeight = currentElement.offsetHeight;
+        const sectionTop = currentElement.getBoundingClientRect().top - sectionHeight * 0.2;
 
         if (sectionTop < 0 && sectionTop + sectionHeight > 0) {
           setActive(sectionId);
@@ -40,22 +40,27 @@ const Navbar = () => {
       });
     };
 
-    window.addEventListener("scroll", navbarHighlighter);
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', navbarHighlighter);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("scroll", navbarHighlighter);
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', navbarHighlighter);
     };
   }, []);
 
   return (
     <nav
+      aria-label="Main navigation"
+      onKeyDown={event => {
+        if (event.key === 'Escape') setToggle(false);
+      }}
       className={`${
         styles.paddingX
-      } fixed top-0 z-50 flex w-full items-center py-5 transition-colors duration-300 ${
-      scrolled
-        ? "bg-primary shadow-lg shadow-black/20"
-        : "bg-primary/70 backdrop-blur-md"
+      } fixed top-0 z-50 flex w-full items-center py-5 transition-all duration-300 ${
+        scrolled
+          ? 'border-b border-white/10 bg-slate-950/75 shadow-lg shadow-black/20 backdrop-blur-xl'
+          : 'bg-slate-950/35 backdrop-blur-md'
       }`}
     >
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
@@ -66,50 +71,71 @@ const Navbar = () => {
             window.scrollTo(0, 0);
           }}
         >
-          <img src={logo} alt="logo" className="h-9 w-9 object-contain" />
+          <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#38BDF8]/50 bg-[#38BDF8]/10 text-[0.7rem] font-bold text-[#38BDF8]">
+            MN
+          </div>
           <p className="flex cursor-pointer text-[18px] font-bold text-white">
             {config.html.fullName}
           </p>
         </Link>
 
-        <ul className="hidden list-none flex-row gap-10 sm:flex">
-          {navLinks.map((nav) => (
+        <ul className="hidden list-none flex-row items-center gap-8 lg:flex">
+          {navLinks.map(nav => (
             <li
               key={nav.id}
               className={`${
-                active === nav.id ? "text-white" : "text-secondary"
-              } cursor-pointer text-[18px] font-medium hover:text-white`}
+                active === nav.id ? 'text-white' : 'text-slate-300'
+              } text-[15px] font-medium transition-colors duration-200 hover:text-white`}
             >
-              <a href={`#${nav.id}`}>{nav.title}</a>
+              <a
+                href={`#${nav.id}`}
+                aria-current={active === nav.id ? 'location' : undefined}
+                className="relative inline-flex min-h-11 items-center py-1.5"
+              >
+                <span className={active === nav.id ? 'nav-link-active' : 'nav-link'}>
+                  {nav.title}
+                </span>
+              </a>
             </li>
           ))}
         </ul>
 
-        <div className="flex flex-1 items-center justify-end sm:hidden">
-          <img
-            src={toggle ? close : menu}
-            alt="menu"
-            className="h-[28px] w-[28px] object-contain"
-            onClick={() => setToggle(!toggle)}
-          />
+        <div className="flex flex-1 items-center justify-end lg:hidden">
+          <button
+            type="button"
+            aria-label="Toggle menu"
+            aria-expanded={toggle}
+            aria-controls="mobile-navigation"
+            onClick={() => setToggle(value => !value)}
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-slate-900/60"
+          >
+            <img src={toggle ? close : menu} alt="" className="h-[22px] w-[22px] object-contain" />
+          </button>
 
           <div
+            id="mobile-navigation"
             className={`${
-              !toggle ? "hidden" : "flex"
-            } black-gradient absolute right-0 top-20 z-10 mx-4 my-2 min-w-[140px] rounded-xl p-6`}
+              !toggle ? 'hidden' : 'flex'
+            } absolute right-0 top-20 z-10 mx-4 my-2 min-w-[180px] rounded-2xl border border-white/10 bg-slate-950/90 p-4 shadow-2xl shadow-black/30 backdrop-blur-xl`}
           >
             <ul className="flex flex-1 list-none flex-col items-start justify-end gap-4">
-              {navLinks.map((nav) => (
+              {navLinks.map(nav => (
                 <li
                   key={nav.id}
-                  className={`font-poppins cursor-pointer text-[16px] font-medium ${
-                    active === nav.id ? "text-white" : "text-secondary"
-                  }`}
+                  className={`${
+                    active === nav.id ? 'text-white' : 'text-slate-300'
+                  } cursor-pointer text-[16px] font-medium`}
                   onClick={() => {
-                    setToggle(!toggle);
+                    setToggle(false);
                   }}
                 >
-                  <a href={`#${nav.id}`}>{nav.title}</a>
+                  <a
+                    href={`#${nav.id}`}
+                    aria-current={active === nav.id ? 'location' : undefined}
+                    className="inline-flex min-h-11 items-center"
+                  >
+                    {nav.title}
+                  </a>
                 </li>
               ))}
             </ul>

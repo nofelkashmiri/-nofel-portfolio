@@ -24,6 +24,10 @@ type TConfig = {
         span: string;
         placeholder: string;
       };
+      subject: {
+        span: string;
+        placeholder: string;
+      };
       message: {
         span: string;
         placeholder: string;
@@ -40,51 +44,65 @@ type TConfig = {
 
 export const config: TConfig = {
   html: {
-    title: "Muhammad Nofel | Digital Marketing & E-commerce Manager",
-    fullName: "Muhammad Nofel",
-    email: "m.nofel786@gmail.com",
+    title: 'Muhammad Nofel | Digital Marketing & E-commerce Specialist',
+    fullName: 'Muhammad Nofel',
+    email: 'm.nofel786@gmail.com',
   },
   hero: {
-    name: "Muhammad Nofel",
+    name: 'Muhammad Nofel',
     p: [
-      "Digital Marketing & E-commerce Manager",
-      "Helping businesses grow through strategic digital marketing, social media management, and e-commerce operations.",
+      'Building Digital Experiences. Growing Businesses.',
+      "I'm Muhammad Nofel, a digital marketing and e-commerce professional passionate about helping businesses strengthen their online presence, manage digital storefronts, and grow through technology-driven solutions.",
     ],
   },
   contact: {
-    p: "Get in touch",
-    h2: "Contact.",
+    p: 'Get in touch',
+    h2: 'Contact.',
     form: {
       name: {
-        span: "Your Name",
+        span: 'Your Name',
         placeholder: "What's your name?",
       },
-      email: { span: "Your Email", placeholder: "What's your email?" },
+      email: { span: 'Your Email', placeholder: "What's your email?" },
+      subject: {
+        span: 'Subject',
+        placeholder: 'What would you like to discuss?',
+      },
       message: {
-        span: "Your Message",
-        placeholder: "What do you want to say?",
+        span: 'Your Message',
+        placeholder: 'What do you want to say?',
       },
     },
   },
   sections: {
     about: {
-      p: "Introduction",
-      h2: "Overview.",
-      content: `I'm Muhammad Nofel, a BS Information Technology student at Punjab University in Pakistan with practical experience in digital marketing, social media management, and e-commerce operations. I manage social media for UK-based mobile shops and oversee a brand's online store operations across Amazon and Shopify. My work includes managing Meta Ads campaigns, creating marketing content, maintaining product listings, handling orders and inventory, and supporting store promotions. I enjoy combining creative marketing with organized e-commerce management to help businesses strengthen their digital presence.`,
+      p: 'Introduction',
+      h2: 'About Me.',
+      content: `I'm Muhammad Nofel, a Digital Marketing and E-commerce professional currently pursuing a Bachelor's degree in Information Technology.
+
+I work across digital marketing, social media management, and e-commerce operations, helping businesses strengthen their online presence and manage their digital storefronts.
+
+My experience includes managing Meta Ads campaigns, handling social media platforms, and working with Shopify and Amazon Seller Central.
+
+Alongside my professional work, I'm continuously developing my technical knowledge in web development and modern digital technologies.
+
+I believe in combining creativity, technology, and practical business thinking to build meaningful digital experiences.`,
     },
     experience: {
-      p: "My Background",
-      h2: "Experience.",
-      content: "Currently pursuing a BS in Information Technology at Punjab University, Pakistan.",
+      p: 'My Background',
+      h2: 'Experience.',
+      content:
+        'Currently pursuing a BS in Information Technology at the University of the Punjab. I am in my 5th semester.',
     },
     feedbacks: {
-      p: "Client feedback",
-      h2: "Testimonials.",
+      p: 'Client feedback',
+      h2: 'Testimonials.',
     },
     works: {
-      p: "Selected experience",
-      h2: "What I Manage.",
-      content: "Examples of my day-to-day work across social media and e-commerce. Business and brand names are intentionally kept confidential.",
+      p: 'Selected experience',
+      h2: 'Project Case Studies.',
+      content:
+        'A closer look at my e-commerce, marketplace, social media, and campaign work. Client identities are withheld where appropriate; no performance results are claimed.',
     },
   },
 };

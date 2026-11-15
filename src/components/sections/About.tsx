@@ -1,12 +1,12 @@
-import React from "react";
-import Tilt from "react-parallax-tilt";
-import { motion } from "framer-motion";
+import React from 'react';
+import Tilt from 'react-parallax-tilt';
+import { motion } from 'framer-motion';
 
-import { services } from "../../constants";
-import { SectionWrapper } from "../../hoc";
-import { fadeIn } from "../../utils/motion";
-import { config } from "../../constants/config";
-import { Header } from "../atoms/Header";
+import { services } from '../../constants';
+import { SectionWrapper } from '../../hoc';
+import { fadeIn } from '../../utils/motion';
+import { config } from '../../constants/config';
+import { Header } from '../atoms/Header';
 
 interface IServiceCard {
   index: number;
@@ -14,38 +14,32 @@ interface IServiceCard {
   description: string;
 }
 
-const ServiceCard: React.FC<IServiceCard> = ({
-  index,
-  title,
-  description,
-}) => (
+const ServiceCard: React.FC<IServiceCard> = ({ index, title, description }) => (
   <Tilt
-    glareEnable
-    tiltEnable
+    glareEnable={
+      typeof window !== 'undefined' &&
+      window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    }
+    tiltEnable={
+      typeof window !== 'undefined' &&
+      window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    }
     tiltMaxAngleX={12}
     tiltMaxAngleY={12}
-    glareColor="#aaa6c3"
+    glareColor="#8bd3ff"
   >
-    <div className="max-w-[250px] w-full xs:w-[250px]">
-      <motion.div
-        variants={fadeIn("right", "spring", index * 0.5, 0.75)}
-        className="green-pink-gradient shadow-card w-full rounded-[20px] p-[1px]"
-      >
-        <div className="bg-tertiary flex min-h-[280px] flex-col items-center justify-evenly rounded-[20px] px-12 py-5">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[#915EFF]/40 bg-[#915EFF]/10 text-2xl font-bold text-[#b69cff]">
-            {String(index + 1).padStart(2, "0")}
-          </div>
-          <div>
-            <h3 className="text-center text-[20px] font-bold text-white">
-              {title}
-            </h3>
-            <p className="text-secondary mt-3 text-center text-sm leading-6">
-              {description}
-            </p>
-          </div>
+    <motion.div
+      variants={fadeIn('up', 'spring', index * 0.12, 0.7)}
+      className="group h-full w-full rounded-[24px] border border-slate-800/80 bg-slate-900/60 p-[1px] shadow-[0_20px_70px_rgba(15,23,42,0.6)]"
+    >
+      <div className="flex min-h-[240px] flex-col rounded-[23px] bg-[linear-gradient(180deg,_rgba(15,23,42,0.96),_rgba(15,23,42,0.78))] px-6 py-7">
+        <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-[#38BDF8]/40 bg-[#38BDF8]/10 text-lg font-bold text-[#7dd3fc] transition-transform duration-300 group-hover:scale-105">
+          {String(index + 1).padStart(2, '0')}
         </div>
-      </motion.div>
-    </div>
+        <h3 className="text-[1.2rem] font-bold text-white">{title}</h3>
+        <p className="mt-4 text-sm leading-7 text-slate-300">{description}</p>
+      </div>
+    </motion.div>
   </Tilt>
 );
 
@@ -54,14 +48,36 @@ const About = () => {
     <>
       <Header useMotion={true} {...config.sections.about} />
 
-      <motion.p
-        variants={fadeIn("", "", 0.1, 1)}
-        className="text-secondary mt-4 max-w-3xl text-[17px] leading-[30px]"
+      <motion.div
+        variants={fadeIn('', '', 0.1, 1)}
+        className="mt-6 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between"
       >
-        {config.sections.about.content}
-      </motion.p>
+        <div className="max-w-3xl">
+          {config.sections.about.content.split('\n\n').map(paragraph => (
+            <p key={paragraph} className="text-base leading-8 text-slate-300 sm:text-[17px]">
+              {paragraph}
+            </p>
+          ))}
+        </div>
 
-      <div className="mt-20 flex flex-wrap gap-10 max-sm:justify-center">
+        <div className="grid w-full max-w-md gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+          {[
+            'Digital Marketing',
+            'E-commerce Operations',
+            'Social Media Strategy',
+            'Web & Digital Growth',
+          ].map(item => (
+            <div
+              key={item}
+              className="rounded-2xl border border-slate-800 bg-slate-950/60 px-4 py-3 text-sm font-medium text-slate-200 shadow-[0_10px_30px_rgba(15,23,42,0.45)]"
+            >
+              {item}
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         {services.map((service, index) => (
           <ServiceCard key={service.title} index={index} {...service} />
         ))}
@@ -70,4 +86,4 @@ const About = () => {
   );
 };
 
-export default SectionWrapper(About, "about");
+export default SectionWrapper(About, 'about');

@@ -1,120 +1,100 @@
-import type {
-  TNavLink,
-  TExperience,
-  TTestimonial,
-  TProject,
-} from "../types";
+import type { TNavLink, TExperience, TTestimonial, TProject } from '../types';
 
 export const navLinks: TNavLink[] = [
   {
-    id: "about",
-    title: "About",
+    id: 'home',
+    title: 'Home',
   },
   {
-    id: "experience",
-    title: "Experience",
+    id: 'about',
+    title: 'About',
   },
   {
-    id: "tech",
-    title: "Skills",
+    id: 'tech',
+    title: 'Skills',
   },
   {
-    id: "projects",
-    title: "Highlights",
+    id: 'experience',
+    title: 'Experience',
   },
   {
-    id: "contact",
-    title: "Contact",
+    id: 'projects',
+    title: 'Projects',
+  },
+  {
+    id: 'contact',
+    title: 'Contact',
   },
 ];
 
 const services = [
   {
-    title: "Digital Marketing",
+    title: 'Digital Marketing',
     description:
-      "Campaign planning, audience targeting, Meta Ads, and brand growth.",
+      'Meta Ads campaigns, audience targeting, and brand growth strategies designed to improve visibility and conversion.',
   },
   {
-    title: "Social Media Management",
+    title: 'Social Media Management',
     description:
-      "Content planning, scheduling, page optimization, and audience engagement.",
+      'Content planning, publishing, page optimization, and engagement strategy for business growth across social platforms.',
   },
   {
-    title: "E-commerce Management",
+    title: 'E-commerce Management',
     description:
-      "Product listings, catalog organization, store content, and customer experience.",
+      'Store and catalog operations across Shopify and Amazon, covering product listings, inventory, and customer experience.',
   },
   {
-    title: "Marketing Creatives",
+    title: 'Web & Digital Solutions',
     description:
-      "Social media ad creatives, promotional graphics, and marketing visuals.",
+      'Practical digital work that blends business thinking, online storefront operations, and modern web technology understanding.',
   },
 ];
 
 const technologies = [
   {
-    name: "Digital Marketing",
+    name: 'Digital Marketing',
     skills: [
-      "Meta Ads Manager",
-      "Facebook & Instagram Ads",
-      "Campaign Planning",
-      "Campaign Execution",
-      "Audience Targeting",
-      "Online Brand Promotion",
-      "Marketing Content",
+      'Meta Ads Manager',
+      'Campaign Management',
+      'Social Media Marketing',
+      'Content Strategy',
+      'Social Media Management',
     ],
   },
   {
-    name: "Social Media",
+    name: 'E-commerce Management',
     skills: [
-      "Content Planning",
-      "Publishing",
-      "Creative Development",
-      "Promotional Content",
-      "Brand Communication",
-      "Content Editing",
+      'Shopify',
+      'Amazon Seller Central',
+      'Product Research',
+      'Product Listings',
+      'Inventory Management',
+      'Order Management',
+      'Product Page Optimization',
     ],
   },
   {
-    name: "E-commerce",
-    skills: [
-      "Shopify",
-      "Amazon Seller Central",
-      "Product Research",
-      "Listings & Catalogs",
-      "Orders & Inventory",
-      "Product Pages",
-      "Promotions",
-    ],
+    name: 'Creative and Productivity Tools',
+    skills: ['Canva', 'CapCut', 'Google Docs', 'Google Sheets', 'Google Drive'],
   },
   {
-    name: "Creative & Platforms",
-    skills: [
-      "Facebook",
-      "Instagram",
-      "Canva",
-      "CapCut",
-      "Google Docs",
-      "Google Sheets",
-      "Google Drive",
-    ],
+    name: 'Technology',
+    skills: ['HTML', 'CSS', 'JavaScript', 'React', 'Git', 'Responsive Design', 'Web Fundamentals'],
   },
 ];
 
 const experiences: TExperience[] = [
   {
-    title: "Digital Marketing Intern",
-    companyName: "Power Developers",
-    icon: "PD",
-    iconBg: "#915EFF",
-    date: "August 2025 – Present",
+    title: 'Digital Marketing Intern',
+    companyName: 'Power Developers',
+    icon: 'PD',
+    iconBg: '#38BDF8',
+    date: 'August 2025 – Present',
     points: [
-      "Set up and manage Meta Ads campaigns for Facebook and Instagram.",
-      "Manage social media activities for UK-based mobile shops, including content planning, creative development, and publishing.",
-      "Manage product listings and store operations across Amazon and Shopify.",
-      "Conduct product research and maintain product pages and descriptions.",
-      "Coordinate orders and inventory across online selling platforms.",
-      "Support e-commerce marketing activities and promotional campaigns.",
+      'Set up and manage Meta Ads campaigns for Facebook and Instagram.',
+      'Plan and publish social content, develop creatives, and support promotional activity for UK-based mobile shops.',
+      "Support a brand's Amazon Seller Central and Shopify store operations, including product research, listings, and product-page updates.",
+      'Coordinate order and inventory tasks across online selling platforms.',
     ],
   },
 ];
@@ -123,26 +103,54 @@ const projects: TProject[] = [];
 
 const selectedExperience = [
   {
-    title: "Social Media Management",
-    subtitle: "UK-based mobile shops",
+    title: 'ACM Technologies — E-commerce Website',
+    subtitle: 'Mobile accessories business',
     description:
-      "Manage social media accounts, publish planned content, and support promotional activities to maintain a consistent online presence.",
-    skills: ["Social Media", "Content Publishing", "Promotions"],
+      'An e-commerce website project for a mobile accessories business, intended to provide customers with an online shopping experience.',
+    role: 'Project role and individual responsibilities were not specified in the provided project details.',
+    tools: [],
+    responsibilities: [
+      'Project scope: an e-commerce website for a mobile accessories business.',
+      'Specific implemented features, tools, and project status have not been verified, so no catalog, cart, checkout, or admin features are claimed.',
+    ],
   },
   {
-    title: "E-commerce Operations",
-    subtitle: "Amazon & Shopify",
+    title: 'Amazon Seller Central Operations',
+    subtitle: 'Confidential brand',
     description:
-      "Support a brand's online operations through product research, listings, order and inventory coordination, product page updates, and marketing promotions.",
-    skills: ["Amazon", "Shopify", "Store Operations"],
+      'Support e-commerce operations through product research, product listings, and ongoing marketplace store coordination.',
+    role: 'E-commerce operations support',
+    tools: ['Amazon Seller Central'],
+    responsibilities: [
+      'Conduct product research and maintain product listings.',
+      'Support store operations, order and inventory management, and advertising activities.',
+    ],
+  },
+  {
+    title: 'Shopify Store Management',
+    subtitle: 'Confidential brand',
+    description:
+      'Help manage an online storefront and its day-to-day product and operational content.',
+    role: 'Shopify store operations support',
+    tools: ['Shopify'],
+    responsibilities: [
+      'Maintain product listings, descriptions, and product pages.',
+      'Support store operations, inventory and order tasks, and promotions.',
+    ],
+  },
+  {
+    title: 'Social Media & Meta Ads',
+    subtitle: 'Client identities withheld',
+    description:
+      'Manage social media activity and support paid campaign operations for businesses while keeping client identities private.',
+    role: 'Digital marketing and social media support',
+    tools: ['Meta Ads Manager', 'Facebook', 'Instagram', 'Canva', 'CapCut'],
+    responsibilities: [
+      'Set up and manage Meta Ads campaigns, including campaign and audience setup.',
+      'Plan, create, and publish social content and promotional creatives.',
+      'Support ongoing social media platform management.',
+    ],
   },
 ];
 
-export {
-  services,
-  technologies,
-  experiences,
-  testimonials,
-  projects,
-  selectedExperience,
-};
+export { services, technologies, experiences, testimonials, projects, selectedExperience };
