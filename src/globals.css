@@ -143,99 +143,25 @@ section[id] {
   transform: translateY(-2px);
 }
 
-.hero-3d-card {
-  position: relative;
-  width: 100%;
-  height: 320px;
-  perspective: 1200px;
-  transform-style: preserve-3d;
+.hero-backdrop {
+  background:
+    radial-gradient(ellipse at 78% 45%, rgba(56, 189, 248, 0.12), transparent 42%),
+    radial-gradient(ellipse at 10% 82%, rgba(99, 102, 241, 0.1), transparent 35%);
 }
 
-.hero-section h1 {
-  font-size: clamp(2.15rem, 8vw, 4rem);
-  line-height: 1.08;
+.hero-portrait-glow {
+  background: radial-gradient(ellipse, rgba(56, 189, 248, 0.26), transparent 68%);
+  filter: blur(38px);
+  opacity: 0.75;
 }
 
-.hero-3d-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 28px;
-  overflow: hidden;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04));
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow:
-    0 35px 60px rgba(18, 16, 31, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  transform-style: preserve-3d;
-  backdrop-filter: blur(10px);
-}
-
-.hero-3d-shine {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    115deg,
-    transparent 25%,
-    rgba(255, 255, 255, 0.22) 48%,
-    transparent 68%
-  );
-  transform: translateX(-130%);
-  animation: hero-shine 7s ease-in-out infinite;
-}
-
-.hero-3d-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  filter: saturate(1.2) contrast(1.05) brightness(0.95);
-  transform: scale(1.04) translateZ(18px);
-}
-
-.hero-3d-glow {
-  position: absolute;
-  inset: -18% -10% auto auto;
-  width: 75%;
-  height: 72%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.32), rgba(56, 189, 248, 0));
-  transform: translateZ(-30px);
-  filter: blur(16px);
-}
-
-.hero-3d-ring {
-  position: absolute;
-  inset: 8% 12%;
-  border-radius: 26px;
-  border: 1px solid rgba(56, 189, 248, 0.32);
-  transform: translateZ(-12px) rotateX(14deg);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.06),
-    0 0 28px rgba(56, 189, 248, 0.2);
-}
-
-.hero-3d-ring-two {
-  inset: 15% 20%;
-  border-color: rgba(102, 212, 255, 0.32);
-  transform: translateZ(-26px) rotateY(-18deg);
-}
-
-@keyframes hero-shine {
-  0%,
-  35% {
-    transform: translateX(-130%);
-  }
-  65%,
-  100% {
-    transform: translateX(130%);
-  }
+.hero-portrait-frame img {
+  transition: transform 550ms ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-3d-shine {
-    animation: none;
+  .hero-portrait-frame img {
+    transition: none;
   }
 }
 
@@ -259,22 +185,6 @@ section[id] {
   box-shadow:
     inset -1.5rem 0 2.5rem rgba(2, 6, 23, 0.65),
     0 0 3rem rgba(56, 189, 248, 0.15);
-}
-
-@media (max-width: 640px) {
-  .hero-3d-card {
-    height: min(74vw, 300px);
-    min-height: 230px;
-  }
-
-  .hero-3d-inner,
-  .hero-3d-inner img {
-    border-radius: 24px;
-  }
-
-  .hero-3d-shine {
-    animation-duration: 10s;
-  }
 }
 
 @media (max-width: 380px) {
