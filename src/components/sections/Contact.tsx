@@ -128,16 +128,48 @@ const Contact = () => {
     setStatus(null);
   };
 
+  const buildMailtoLink = (payload: ContactForm) => {
+    const subject = encodeURIComponent(payload.subject.trim() || 'Portfolio inquiry');
+    const body = encodeURIComponent(
+      [
+        `Name: ${payload.name.trim()}`,
+        `Email: ${payload.email.trim()}`,
+        '',
+        payload.message.trim(),
+      ].join('\n')
+    );
+
+    return `mailto:${config.html.email}?subject=${subject}&body=${body}`;
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setStatus(null);
 
-    if (!emailjsConfig.serviceId || !emailjsConfig.templateId || !emailjsConfig.publicKey) {
+    const trimmedForm = {
+      name: form.name.trim(),
+      email: form.email.trim(),
+      subject: form.subject.trim(),
+      message: form.message.trim(),
+    };
+
+    if (!trimmedForm.name || !trimmedForm.email || !trimmedForm.subject || !trimmedForm.message) {
       setStatus({
         type: 'error',
-        message:
-          'The contact form is not configured yet. Please email me directly using the link below.',
+        message: 'Please complete all fields before sending your message.',
       });
+      return;
+    }
+
+    const mailtoLink = buildMailtoLink(trimmedForm);
+
+    if (!emailjsConfig.serviceId || !emailjsConfig.templateId || !emailjsConfig.publicKey) {
+      setStatus({
+        type: 'success',
+        message: 'Your email app is ready to send the message. Please confirm the draft.',
+      });
+      window.location.href = mailtoLink;
+      setForm(INITIAL_STATE);
       return;
     }
 
@@ -148,14 +180,14 @@ const Contact = () => {
         emailjsConfig.serviceId,
         emailjsConfig.templateId,
         {
-          form_name: form.name.trim(),
-          from_name: form.name.trim(),
+          form_name: trimmedForm.name,
+          from_name: trimmedForm.name,
           to_name: config.html.fullName,
-          from_email: form.email.trim(),
-          reply_to: form.email.trim(),
+          from_email: trimmedForm.email,
+          reply_to: trimmedForm.email,
           to_email: config.html.email,
-          subject: form.subject.trim(),
-          message: form.message.trim(),
+          subject: trimmedForm.subject,
+          message: trimmedForm.message,
         },
         emailjsConfig.publicKey
       );
@@ -168,9 +200,11 @@ const Contact = () => {
     } catch (error) {
       console.error('EmailJS failed to send the contact form.', error);
       setStatus({
-        type: 'error',
-        message: 'Your message could not be sent. Please try again or email me directly.',
+        type: 'success',
+        message: 'Your email app is ready to send the message. Please confirm the draft.',
       });
+      window.location.href = mailtoLink;
+      setForm(INITIAL_STATE);
     } finally {
       setLoading(false);
     }
